@@ -10,10 +10,10 @@
 
 		<title>Dashboard Template for Bootstrap</title>
 		<!-- Bootstrap core CSS -->
-		<link href="asserts/css/bootstrap.min.css" rel="stylesheet">
+		<link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.css}" rel="stylesheet">
 
 		<!-- Custom styles for this template -->
-		<link href="asserts/css/dashboard.css" rel="stylesheet">
+		<link href="asserts/css/dashboard.css" th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
 		<style type="text/css">
 			/* Chart.js */
 			
@@ -72,7 +72,7 @@
 									<td th:text="${#dates.format(emp.birth,'yyyy-MM-dd')}"></td>
 									<td>
 										<a class="btn btn-sm btn-primary" th:href="@{/emp/}+${emp.id}">编辑</a>
-										<a class="btn btn-sm btn-danger">删除</a>
+										<a class="btn btn-sm btn-danger" id="deleteEmp" th:value="${emp.id}">删除</a>
 									</td>
 								</tr>
 							</tbody>
@@ -126,6 +126,22 @@
 				}
 			});
 		</script>
+	<script type="text/javascript">
+		$(function () {
+            $("#deleteEmp").click(function (){
+                $.ajax({
+                    url:'/emp/delete',
+                    data:{"name":$("#deleteEmp").val()},
+                    datetype:'json',
+                    success:function (msg) {
+                        alert(msg);
+                    }
+
+                })
+            })
+        })
+
+	</script>
 
 	</body>
 
